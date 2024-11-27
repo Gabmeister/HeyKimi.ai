@@ -1,4 +1,4 @@
-![kimilogo](https://github.com/Gabmeister/HeyKimi.ai/blob/main/frontend/src/components/kimilogo.png)
+![kimilogo](https://github.com/Gabmeister/HeyKimi.ai/blob/main/frontend/src/assets/kimilogo.png)
 # Kimi - an AI Agent for your startup.
 
 Hey Kimi, what leads should I focus on this week?

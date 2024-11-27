@@ -1,6 +1,6 @@
 import React from "react";
 import '../pages/LandingPage.css';
-import kimilogo from '../components/kimilogo.png';
+import kimilogo from '../assets/kimilogo.png';
 
 const LandingPage = () => {
   return (

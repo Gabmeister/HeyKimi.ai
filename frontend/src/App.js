@@ -10,7 +10,9 @@ function App(){
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login =()=>{//mock for now
+    console.log("Login function called");
     setIsAuthenticated(true);
+    console.log("isAuthenticated updated to true");
   };
 
   const logout =()=>{//mock for now
@@ -25,7 +27,7 @@ function App(){
         <Route
           path="/dashboard"
           element={
-            isAuthenticated ? <Dashboard /> : <Navigate to="/login" />
+            isAuthenticated ? (<Dashboard isAuthenticated={isAuthenticated}/>) : (<Navigate to="/login" replace/>)
           }
         />
         <Route

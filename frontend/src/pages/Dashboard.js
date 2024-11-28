@@ -10,10 +10,12 @@ const Dashboard = ({isAuthenticated}) => {
   const {transcript, resetTranscript} = useSpeechRecognition();//setup speech recog.
   
   useEffect(() => {
+    console.log("Dashboard mounted. isAuthenticated:", isAuthenticated);
     if (isAuthenticated){
       if (!SpeechRecognition.browserSupportsSpeechRecognition()){
         console.error("Your browser does not support speech recognition...");
       }else{
+        console.log("Authenticated. Starting speech recognition...");
         SpeechRecognition.startListening({continuous: true});//listen upon mount
       }
     }

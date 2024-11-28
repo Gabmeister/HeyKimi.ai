@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -12,6 +13,23 @@ app.add_middleware(
     allow_headers=["*"],  #allow all headers
 )
 
+MOCK_USERS = {
+    "admin": "password",
+}
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
 @app.get("/api")
 def read_root():
-    return {"message": "Welcome to the Backend..."}
+    return {"message": "Welcome to the backend >:)"}
+
+@app.post("/login")
+def login(data: LoginRequest):
+    username = data.username
+    password = data.password
+    if username in MOCK_USERS and MOCK_USERS[username] == password:
+        return {"message": "Login successful", "authenticated": True}
+    else:
+        raise HTTPException(status_code=401, detail="Invalid credentials")

@@ -3,19 +3,21 @@ import API from "../services/api";
 import LogoTrigger from "../components/LogoTrigger";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-const Dashboard = () => {
+const Dashboard = ({isAuthenticated}) => {
   const [message, setMessage] = useState("");
   const [isPulsing, setIsPulsing] = useState(false);
   const [displayedWords, setDisplayedWords] = useState("");//store realtime words
   const {transcript, resetTranscript} = useSpeechRecognition();//setup speech recog.
   
   useEffect(() => {
-    if (!SpeechRecognition.browserSupportsSpeechRecognition()){
-      console.error("Your browser does not support speech recognition...");
-    }else {
-      SpeechRecognition.startListening({continuous: true});//listen upon mount
+    if (isAuthenticated){
+      if (!SpeechRecognition.browserSupportsSpeechRecognition()){
+        console.error("Your browser does not support speech recognition...");
+      }else{
+        SpeechRecognition.startListening({continuous: true});//listen upon mount
+      }
     }
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {//"hey kimi" logic
     const normalizedTranscript = transcript.toLowerCase();
@@ -25,6 +27,7 @@ const Dashboard = () => {
       normalizedTranscript.includes("hey kim") ||   
       normalizedTranscript.includes("hey kimmi")
     ){
+      console.log("Detected 'Hey Kimi' trigger");
       handleTrigger();
       setTimeout(() => resetTranscript(), 500); 
       return;

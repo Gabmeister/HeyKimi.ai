@@ -23,7 +23,7 @@ class LoginRequest(BaseModel):
 
 @app.get("/api")
 def read_root():
-    return {"message": "Welcome to the backend >:)"}
+    return {"message": "backend is live.."}
 
 @app.post("/login")
 def login(data: LoginRequest):

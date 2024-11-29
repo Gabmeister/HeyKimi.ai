@@ -80,20 +80,23 @@ const Dashboard = ({isAuthenticated}) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {}
-      <LogoTrigger onTrigger={handleTrigger} isPulsing={isPulsing}/>
-      {}
-      <div className="text-center mt-4">
-        {formatDisplayedWords(displayedWords).map((line, index) => (
-          <p key={index} className="text-lg font-light text-gray-700 italic leading-relaxed tracking-wide px-4">
-            {line}
-          </p>
-        ))}
+    <div className="min-h-screen bg-white">
+      {/* Page Content */}
+      <div className="content-wrapper">
+        <div className="text-center mt-8">
+          <h1 className="text-3xl font-bold">{message || "Loading..."}</h1>
+        </div>
       </div>
-      {/* page content */}
-      <div className="text-center mt-8">
-        <h1 className="text-3xl font-bold">{message || "Loading..."}</h1>
+      {/* Sticky Chatbox */}
+      <div className="fixed bottom-4 left-0 right-0 flex justify-center">
+        <div className="flex items-center bg-white rounded-full shadow-lg px-4 py-2 w-96 max-w-full border border-gray-300">
+          {/* Logo */}
+          <div className="flex justify-center items-center flex-shrink-0 w-10 h-10">
+            <LogoTrigger onTrigger={handleTrigger} isPulsing={isPulsing} size="small" />
+          </div>
+          {/* Input Placeholder */}
+          <div className="ml-4 text-gray-500 italic flex-grow">hey kimi...</div>
+        </div>
       </div>
     </div>
   );

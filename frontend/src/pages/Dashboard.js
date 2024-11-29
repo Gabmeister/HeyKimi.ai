@@ -78,23 +78,24 @@ const Dashboard = ({isAuthenticated}) => {
     }
     return lines;
   };
+  
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Page Content */}
+      {/*page content*/}
       <div className="content-wrapper">
         <div className="text-center mt-8">
           <h1 className="text-3xl font-bold">{message || "Loading..."}</h1>
         </div>
       </div>
-      {/* Sticky Chatbox */}
-      <div className="fixed bottom-4 left-0 right-0 flex justify-center">
+      {/*stickyyy*/}
+      <div className="fixed bottom-4 left-40 right-0 flex justify-center z-10">
         <div className="flex items-center bg-white rounded-full shadow-lg px-4 py-2 w-96 max-w-full border border-gray-300">
-          {/* Logo */}
+          {/*kimilogo*/}
           <div className="flex justify-center items-center flex-shrink-0 w-10 h-10">
             <LogoTrigger onTrigger={handleTrigger} isPulsing={isPulsing} size="small" />
           </div>
-          {/* Input Placeholder */}
+          {/* placeholder for now*/}
           <div className="ml-4 text-gray-500 italic flex-grow">hey kimi...</div>
         </div>
       </div>

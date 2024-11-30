@@ -19,7 +19,10 @@ const Navbar = ({ isAuthenticated, logout, darkMode }) => {
       </div>
 
       {/*encapsulated by border*/}
-      <div className="flex-grow flex flex-col border-r border-black" style={{ paddingRight: "20px" }}>
+      <div className={`flex-grow flex flex-col border-r ${
+          darkMode ? "border-[#5539CC]":"border-black"
+        }`} style={{ paddingRight: "20px" }}
+      >
         {/*navlinks*/}
         <ul className="flex flex-col space-y-4 items-center">
           {isAuthenticated && (

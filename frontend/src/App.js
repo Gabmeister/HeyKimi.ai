@@ -4,6 +4,10 @@ import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
+import Pipeline from "./pages/Pipeline";
+import Strategy from "./pages/Strategy";
+import Activity from "./pages/Activity";
+import Account from "./pages/Account";
 
 function App(){
   //auth state
@@ -33,6 +37,46 @@ function App(){
         <Route
           path="/login"
           element={<LoginPage login={login} isAuthenticated={isAuthenticated} />}
+        />
+        <Route
+          path="/pipeline"
+          element={
+            isAuthenticated ? (
+              <Pipeline />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/strategy"
+          element={
+            isAuthenticated ? (
+              <Strategy />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/activity"
+          element={
+            isAuthenticated ? (
+              <Activity />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/account"
+          element={
+            isAuthenticated ? (
+              <Account />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
         />
       </Routes>
     </Router>

@@ -15,24 +15,62 @@ const Navbar = ({ isAuthenticated, logout }) => {
         </div>
       </div>
 
-      {/* content encapsulated by border*/}
+      {/*encapsulated by border*/}
       <div className="flex-grow flex flex-col border-r border-black" style={{ paddingRight: "20px" }}>
         {/*navlinks*/}
         <ul className="flex flex-col space-y-4 items-center">
           {isAuthenticated && (
-            <li>
-              <Link
-                to="/dashboard"
-                className="hover:text-purple-400 transition duration-300 text-lg text-center"
-              >
-                Dashboard
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link
+                  to="/dashboard"
+                  className="hover:text-purple-400 transition duration-300 text-lg text-center"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/pipeline"
+                  className="hover:text-purple-400 transition duration-300 text-lg text-center"
+                >
+                  Pipeline
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/strategy"
+                  className="hover:text-purple-400 transition duration-300 text-lg text-center"
+                >
+                  Strategy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/activity"
+                  className="hover:text-purple-400 transition duration-300 text-lg text-center"
+                >
+                  Activity
+                </Link>
+              </li>
+              
+            </>
           )}
         </ul>
 
+        {isAuthenticated && (
+          <div className="mt-auto mb-2">
+            <Link
+              to="/account"
+              className="hover:text-purple-400 transition duration-300 text-lg text-center block"
+            >
+              Account
+            </Link>
+          </div>
+        )}
+
         {/*login/logout at the bottom*/}
-        <div className="mt-auto">
+        <div>
           {!isAuthenticated ? (
             <Link
               to="/login"

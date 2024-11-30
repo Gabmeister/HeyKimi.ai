@@ -13,6 +13,9 @@ function App(){
   //auth state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  //dark mode :O
+  const [darkMode, setDarkMode] = useState(false);
+
   const login =()=>{//mock for now
     console.log("Login function called");
     setIsAuthenticated(true);
@@ -24,62 +27,58 @@ function App(){
   };
 
   return (
-    <Router>
-      <Navbar isAuthenticated={isAuthenticated} logout={logout} />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route
-          path="/dashboard"
-          element={
-            isAuthenticated ? (<Dashboard isAuthenticated={isAuthenticated}/>) : (<Navigate to="/login" replace/>)
-          }
-        />
-        <Route
-          path="/login"
-          element={<LoginPage login={login} isAuthenticated={isAuthenticated} />}
-        />
-        <Route
-          path="/pipeline"
-          element={
-            isAuthenticated ? (
-              <Pipeline />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-        <Route
-          path="/strategy"
-          element={
-            isAuthenticated ? (
-              <Strategy />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-        <Route
-          path="/activity"
-          element={
-            isAuthenticated ? (
-              <Activity />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-        <Route
-          path="/account"
-          element={
-            isAuthenticated ? (
-              <Account />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-      </Routes>
-    </Router>
+    <div className={darkMode ? "bg-[#0E0915] text-white" : "bg-white text-black"}>
+      <Router>
+        <Navbar isAuthenticated={isAuthenticated} logout={logout} darkMode={darkMode} />
+        <Routes>
+          <Route path="/" element={<LandingPage darkMode={darkMode}/>} />
+          <Route
+            path="/dashboard"
+            element={
+              isAuthenticated ? (<Dashboard isAuthenticated={isAuthenticated} darkMode={darkMode}/>)
+              : (<Navigate to="/login" replace/>)
+            }
+          />
+          <Route
+            path="/login"
+            element={<LoginPage login={login} isAuthenticated={isAuthenticated} darkMode={darkMode}/>}
+          />
+          <Route
+            path="/pipeline"
+            element={
+              isAuthenticated ? (
+                <Pipeline darkMode={darkMode}/>) 
+                : (<Navigate to="/login" replace />)
+            }
+          />
+          <Route
+            path="/strategy"
+            element={
+              isAuthenticated ? (
+                <Strategy darkMode={darkMode}/>) 
+                : (<Navigate to="/login" replace />)
+            }
+          />
+          <Route
+            path="/activity"
+            element={
+              isAuthenticated ? (<Activity darkMode={darkMode}/>) 
+              : (<Navigate to="/login" replace />)
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              isAuthenticated ? (
+                <Account darkMode={darkMode} setDarkMode={setDarkMode} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

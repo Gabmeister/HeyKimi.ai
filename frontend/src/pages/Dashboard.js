@@ -3,7 +3,7 @@ import API from "../services/api";
 import LogoTrigger from "../components/LogoTrigger";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-const Dashboard = ({isAuthenticated}) => {
+const Dashboard = ({isAuthenticated, darkMode}) => {
   const [message, setMessage] = useState("");
   const [isPulsing, setIsPulsing] = useState(false);
   const [displayedWords, setDisplayedWords] = useState("");//store realtime words
@@ -81,7 +81,7 @@ const Dashboard = ({isAuthenticated}) => {
   
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen ${darkMode ? "bg-[#0E0915] text-white":"bg-white text-black"}`}>
       {/*page content*/}
       <div className="content-wrapper">
         <div className="text-center mt-8">

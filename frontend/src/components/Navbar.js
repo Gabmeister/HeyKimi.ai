@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import logo from "../assets/kimilogo.png";
 
 
-const Navbar = ({ isAuthenticated, logout }) => {
+const Navbar = ({ isAuthenticated, logout, darkMode }) => {
   return (
-    <nav className="bg-white text-black h-screen fixed top-0 left-0 flex flex-col p-4 w-40">
+    <nav className={`${
+      darkMode ? "bg-[#0E0915] text-white":"bg-white text-black"
+    } h-screen fixed top-0 left-0 flex flex-col p-4 w-40`}
+    >
       {/*borderless - logo section on top*/}
       <div className="flex flex-col items-center mb-4">
         <div className="w-20 h-10" style={{ marginLeft: "-20px" }}> 

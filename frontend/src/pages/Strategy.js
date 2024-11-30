@@ -1,7 +1,13 @@
 import React from "react";
 
-const Strategy = () => {
-  return <h1>Strategy Page</h1>;
+const Strategy = ({darkMode}) => {
+  return (
+    <div className={`min-h-screen ${darkMode ? "bg-[#0E0915] text-white" : "bg-white text-black"}`}>
+      <div className="content-wrapper">
+        <h1 className="text-3xl font-bold text-center">strategy page XD</h1>
+      </div>
+    </div>
+  );
 };
 
 export default Strategy;

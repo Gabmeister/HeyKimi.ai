@@ -65,7 +65,7 @@ const Navbar = ({ isAuthenticated, logout, darkMode }) => {
         </ul>
 
         {isAuthenticated && (
-          <div className="mt-auto mb-2">
+          <div className="mt-4 mb-2">
             <Link
               to="/company"
               className="hover:text-purple-400 transition duration-300 text-lg text-center block"

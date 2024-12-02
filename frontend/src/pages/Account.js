@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useCallback} from "react";
 import axios from "axios";
 
 const Account = ({ darkMode, setDarkMode, username }) => {
@@ -17,27 +17,44 @@ const Account = ({ darkMode, setDarkMode, username }) => {
   };
 
   const handleEditToggle = () => {
+    if (isEditing) {
+      handleSaveChanges();
+    }
     setIsEditing(!isEditing);
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prev) => ({ ...prev, [name]: value }));
+    const {name, value} = e.target;
+    setUserData((prev) =>({ ...prev, [name]: value }));
+  };
+
+  const fetchUserData = useCallback(async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/user/${username}`);
+      setUserData(response.data);
+    } catch (err) {
+      console.error("Failed to fetch user data:", err);
+    }
+  }, [username]);
+
+  const handleSaveChanges = async () => {
+    try {
+      const { full_name, email } = userData; 
+      const response = await axios.put(`http://127.0.0.1:8000/user/${username}`, {
+        full_name,
+        email,
+      });
+      console.log("User updated:", response.data);
+    } catch(err){
+      console.error("Failed to update user data:", err);
+    }
   };
 
   useEffect(() => {
     if (username) {
-      const fetchUserData = async () => {
-        try {
-          const response = await axios.get(`http://127.0.0.1:8000/user/${username}`);
-          setUserData(response.data);
-        } catch (err) {
-          console.error("Failed to fetch user data:", err);
-        }
-      };
       fetchUserData();
     }
-  }, [username]);
+  }, [username,fetchUserData]);
 
   return (
     <div
@@ -129,7 +146,10 @@ const Account = ({ darkMode, setDarkMode, username }) => {
         <div className="flex justify-end mt-6">
           {isEditing && (
             <button
-              onClick={handleEditToggle}
+              onClick={() =>{ //cancel
+                setIsEditing(false);
+                fetchUserData();
+              }}
               className="px-4 py-2 mr-4 text-sm font-medium bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
             >
               Cancel
@@ -139,7 +159,7 @@ const Account = ({ darkMode, setDarkMode, username }) => {
             onClick={handleEditToggle}
             className="px-4 py-2 text-sm font-medium bg-purple-500 text-white rounded-md hover:bg-purple-600 transition duration-300"
           >
-            {isEditing ? "Save Changes" : "Edit Information"}
+            {isEditing ? "Save Changes":"Edit Information"}
           </button>
         </div>
       </div>

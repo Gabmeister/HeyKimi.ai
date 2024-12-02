@@ -38,6 +38,10 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
+class UpdateUserRequest(BaseModel):
+    full_name: str
+    email: str
+    
 @app.get("/api")
 def read_root():
     return {"message": "backend is live.."}
@@ -65,3 +69,13 @@ def get_user_details(username: str):
         }
     else:
         raise HTTPException(status_code=404, detail="User not found")   
+
+@app.put("/user/{username}")
+def update_user(username: str, data: UpdateUserRequest):
+    user = MOCK_USERS.get(username)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user["full_name"] = data.full_name
+    user["email"] = data.email
+    return {"message": "User updated successfully", "user": user}

@@ -8,6 +8,7 @@ import Pipeline from "./pages/Pipeline";
 import Strategy from "./pages/Strategy";
 import Activity from "./pages/Activity";
 import Account from "./pages/Account";
+import Company from "./pages/Company";
 
 function App(){
   //auth state
@@ -56,6 +57,14 @@ function App(){
             element={
               isAuthenticated ? (
                 <Strategy darkMode={darkMode}/>) 
+                : (<Navigate to="/login" replace />)
+            }
+          />
+          <Route
+            path="/company"
+            element={
+              isAuthenticated ? (
+                <Company darkMode={darkMode}/>) 
                 : (<Navigate to="/login" replace />)
             }
           />

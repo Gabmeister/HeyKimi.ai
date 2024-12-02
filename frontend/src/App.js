@@ -13,24 +13,27 @@ import Company from "./pages/Company";
 function App(){
   //auth state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState("");
 
   //dark mode :O
   const [darkMode, setDarkMode] = useState(false);
 
-  const login =()=>{//mock for now
+  const login =(user)=>{//mock for now
     console.log("Login function called");
     setIsAuthenticated(true);
+    setUsername(user);
     console.log("isAuthenticated updated to true");
   };
 
   const logout =()=>{//mock for now
     setIsAuthenticated(false);
+    setUsername("");
   };
 
   return (
     <div className={darkMode ? "bg-[#0E0915] text-white" : "bg-white text-black"}>
       <Router>
-        <Navbar isAuthenticated={isAuthenticated} logout={logout} darkMode={darkMode} />
+        <Navbar isAuthenticated={isAuthenticated} logout={logout} darkMode={darkMode} username={username}/>
         <Routes>
           <Route path="/" element={<LandingPage darkMode={darkMode}/>} />
           <Route
@@ -79,7 +82,7 @@ function App(){
             path="/account"
             element={
               isAuthenticated ? (
-                <Account darkMode={darkMode} setDarkMode={setDarkMode} />
+                <Account username={username} darkMode={darkMode} setDarkMode={setDarkMode} />
               ) : (
                 <Navigate to="/login" replace />
               )

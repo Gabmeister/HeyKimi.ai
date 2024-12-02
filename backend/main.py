@@ -20,6 +20,8 @@ MOCK_USERS = { #dummy data
         "full_name": "Gabriel Plaza",
         "company_name": "HeyKimi.ai",
         "industry": "Technology",
+        "subscription_plan": "Pro Plan",
+        "account_created": "2024-11-26",
     },
     "johndoe1": {
         "password": "password123",
@@ -27,6 +29,8 @@ MOCK_USERS = { #dummy data
         "full_name": "John Doe",
         "company_name": "Doe Enterprises",
         "industry": "Finance",
+        "subscription_plan": "Free Plan",
+        "account_created": "2024-12-02",
     },
 }
 
@@ -56,6 +60,8 @@ def get_user_details(username: str):
             "full_name": user_data["full_name"],
             "company_name": user_data["company_name"],
             "industry": user_data["industry"],
+            "subscription_plan": user_data["subscription_plan"],
+            "account_created": user_data["account_created"],
         }
     else:
         raise HTTPException(status_code=404, detail="User not found")   

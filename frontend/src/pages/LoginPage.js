@@ -19,7 +19,7 @@ const LoginPage = ({login, isAuthenticated}) => {
       const response = await axios.post("http://127.0.0.1:8000/login", formData);
       if (response.data.authenticated){
         console.log("Login successful. Calling login function...");
-        login(); // login func. passed as a prop
+        login(formData.username);
       }
     }catch(err){
       console.error("Login failed:", err);

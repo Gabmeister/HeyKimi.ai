@@ -93,39 +93,79 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
         {/*today's accounts container*/}
         <div className="flex justify-start space-x-4 mt-8 px-6">
           {/*card layout container*/}
-          <div className="flex-shrink-0 h-[50vh] w-[25%] bg-[#1B152A] rounded-md shadow-md p-4 overflow-hidden">
-            <h2 className="text-lg font-bold text-white mb-4">Today's Accounts</h2>
-            <div className="overflow-y-auto h-full  scrollbar scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-gray-800 space-y-4">
+          <div
+          className={`flex-shrink-0 h-[50vh] w-[25%] ${darkMode ? "bg-[#1B152A]" : "bg-gray-200"} rounded-md shadow-md p-4 overflow-hidden`}>
+            <h2 className={`text-lg font-bold ${darkMode ? "text-white":"text-black"} mb-4`}>
+              Today's Accounts
+            </h2>
+            <div
+              className={`overflow-y-auto h-full scrollbar scrollbar-thin 
+              ${darkMode
+                ?"scrollbar-thumb-purple-500 scrollbar-track-gray-800"
+                :"scrollbar-thumb-blue-300 scrollbar-track-gray-100"
+              }space-y-4`}
+            >
               {todaysAccounts.map((account, index) => (
                 <div
-                  key={index}
-                  className="p-4 bg-[#261C34] rounded-lg shadow hover:bg-[#342544] transition duration-300"
+                key={index}
+                className={`p-4 rounded-lg shadow transition duration-300 ${
+                  darkMode
+                    ?"bg-[#261C34] hover:bg-[#342544]"
+                    :"bg-white hover:bg-gray-100"
+                }`}
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <h3 className="text-white text-lg font-semibold">
+                      <h3 className={`text-lg font-semibold ${
+                          darkMode ? "text-white":"text-black"
+                        }`}>
                         {account.name}
                       </h3>
-                      <p className="text-gray-400 text-sm">{account.industry}</p>
-                      <p className="text-gray-400 text-sm">{account.location}</p>
-                      <p className="text-gray-400 text-sm">
-                        Employees: {account.employees}
+                      <p
+                        className={`text-sm ${darkMode ? "text-gray-400":"text-gray-600"}`}
+                      >
+                      {account.industry}
+                      </p>
+                      <p
+                      className={`text-sm ${darkMode ? "text-gray-400":"text-gray-600"}`}
+                      >
+                      {account.location}
+                      </p>
+                      <p
+                      className={`text-sm ${darkMode ? "text-gray-400":"text-gray-600"}`}
+                      >
+                      Employees: {account.employees}
                       </p>
                       <a
                         href={account.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-purple-400 hover:underline text-sm"
+                        className={`text-sm ${ darkMode
+                          ? "text-purple-400 hover:underline"
+                          : "text-blue-500 hover:underline"
+                        }`}
                       >
                         Visit Website
                       </a>
                     </div>
                     <div className="flex space-x-2">
-                      <button className="text-green-500 hover:text-green-700">
+                      <button
+                        className={`${
+                          darkMode
+                            ?"text-green-500 hover:text-green-700"
+                            :"text-green-600 hover:text-green-800"
+                        }`}
+                      >
                         ✔
                       </button>
-                      <button className="text-red-500 hover:text-red-700">
-                        ✖
+                      <button
+                      className={`${
+                        darkMode
+                          ?"text-red-500 hover:text-red-700"
+                          :"text-red-600 hover:text-red-800"
+                      }`}
+                      >
+                      ✖
                       </button>
                     </div>
                   </div>

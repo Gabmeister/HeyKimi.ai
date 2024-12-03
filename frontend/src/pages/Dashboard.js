@@ -8,6 +8,7 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
   const [isPulsing, setIsPulsing] = useState(false);
   const [displayedWords, setDisplayedWords] = useState("");//store realtime words
   const {transcript, resetTranscript} = useSpeechRecognition();//setup speech recog.
+  const [isListening, setIsListening] = useState(false);
   
   useEffect(() => {
     console.log("Dashboard mounted. isAuthenticated:", isAuthenticated);
@@ -30,6 +31,7 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
       normalizedTranscript.includes("hey kimmi")
     ){
       console.log("Detected 'Hey Kimi' trigger");
+      setIsListening(true);
       handleTrigger();
       setTimeout(() => resetTranscript(), 500); 
       return;
@@ -41,20 +43,23 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
       normalizedTranscript.includes("stop")
     ){
       console.log("Stopping printing logic");
-      SpeechRecognition.stopListening(); 
+      SpeechRecognition.stopListening();
       setDisplayedWords(""); 
+      setIsListening(false);
       setIsPulsing(false);
       resetTranscript(); 
-    }else{
+      return;
+    }
+    if (isListening){
       setDisplayedWords((prevWords) => {
         const filteredWords = transcript
-          .replace(/hey kimi|hey kimmy|hey kim|hey|hey kimmi/gi, "")
-          .trim(); 
-        return filteredWords || prevWords; 
+          .replace(/hey kimi|hey kimmy|hey kim|hey|hey kimmi/gi,"")
+          .trim();
+        return filteredWords || prevWords;
       });
     }
 
-  }, [transcript, resetTranscript]);
+  }, [transcript, resetTranscript, isListening]);
 
   useEffect(() => {
     API.get("/")
@@ -69,21 +74,10 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
     SpeechRecognition.startListening({continuous: true});
   };
 
-  const formatDisplayedWords = (words) => {
-    if (!words) return [];
-    const wordArray = words.split(" ");
-    const lines = [];
-    for (let i = 0; i < wordArray.length; i += 6) {
-      lines.push(wordArray.slice(i, i + 6).join(" "));
-    }
-    return lines;
-  };
-  
-
   return (
-    <div className={`min-h-screen ${darkMode ? "bg-[#0E0915] text-white":"bg-white text-black"}`}>
+    <div className={`min-h-screen flex flex-col ${darkMode ? "bg-[#0E0915] text-white":"bg-white text-black"}`}>
       {/*page content*/}
-      <div className="content-wrapper">
+      <div className="flex-grow content-wrapper">
         <div className="text-center mt-8">
           <h1 className="text-3xl font-bold">{message || "Loading..."}</h1>
         </div>
@@ -95,8 +89,8 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
           <div className="flex justify-center items-center flex-shrink-0 w-10 h-10">
             <LogoTrigger onTrigger={handleTrigger} isPulsing={isPulsing} size="small" />
           </div>
-          {/* placeholder for now*/}
-          <div className="ml-4 text-gray-500 italic flex-grow">hey kimi...</div>
+          {/*realtime words*/}
+          <div className="ml-4 text-gray-500 italic flex-grow">{displayedWords || "hey kimi..."}</div>
         </div>
       </div>
     </div>

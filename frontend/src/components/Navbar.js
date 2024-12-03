@@ -21,7 +21,7 @@ const Navbar = ({ isAuthenticated, logout, darkMode }) => {
       {/*encapsulated by border*/}
       <div className={`flex-grow flex flex-col border-r ${
           darkMode ? "border-[#5539CC]":"border-black"
-        }`} style={{ paddingRight: "20px" }}
+        }`} style={{ paddingRight: "15px" }}
       >
         {/*navlinks*/}
         <ul className="flex flex-col space-y-4 items-center">

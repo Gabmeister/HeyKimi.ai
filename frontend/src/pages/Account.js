@@ -75,7 +75,7 @@ const Account = ({ darkMode, setDarkMode, username }) => {
         </div>
 
         {/*user info*/}
-        <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div className={`p-6 rounded-lg shadow-md ${ darkMode ? "bg-[#1B152A]" : "bg-gray-100"}`}>
           <h2 className="text-xl font-semibold mb-4">User Information</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/*full name*/}
@@ -87,7 +87,8 @@ const Account = ({ darkMode, setDarkMode, username }) => {
                   name="full_name"
                   value={userData.full_name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white dark:bg-gray-700"
+                  className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none ${
+                  darkMode ? "bg-[#2D2055] text-white" : "bg-white text-black"}`}
                 />
               ) : (
                 <p className="text-lg">{userData.full_name}</p>
@@ -103,7 +104,8 @@ const Account = ({ darkMode, setDarkMode, username }) => {
                   name="email"
                   value={userData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none bg-white dark:bg-gray-700"
+                  className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:outline-none ${
+                  darkMode ? "bg-[#2D2055] text-white" : "bg-white text-black"}`}
                 />
               ) : (
                 <p className="text-lg">{userData.email}</p>

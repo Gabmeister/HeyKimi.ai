@@ -34,6 +34,44 @@ MOCK_USERS = { #dummy data
     },
 }
 
+TODAYS_ACCOUNTS = [
+    {
+        "name": "Arasaka",
+        "industry": "Technology",
+        "website": "https://www.arasakagonk.com",
+        "employees": 150,
+        "location": "Cork, IE",
+    },
+    {
+        "name": "Militech",
+        "industry": "Defense",
+        "website": "https://www.Militechnova.ie",
+        "employees": 80,
+        "location": "Dublin, IE",
+    },
+    {
+        "name": "PreemEddies",
+        "industry": "Finance",
+        "website": "https://www.finprime.com",
+        "employees": 300,
+        "location": "New York, NY",
+    },
+    {
+        "name": "EduSpark",
+        "industry": "Education",
+        "website": "https://www.eduspark.com",
+        "employees": 50,
+        "location": "Boston, MA",
+    },
+    {
+        "name": "DavidWillHeal",
+        "industry": "Healthcare",
+        "website": "https://www.davidthedoctor.com",
+        "employees": 200,
+        "location": "Berlin, DE",
+    },
+]
+
 class LoginRequest(BaseModel):
     username: str
     password: str
@@ -41,6 +79,10 @@ class LoginRequest(BaseModel):
 class UpdateUserRequest(BaseModel):
     full_name: str
     email: str
+    
+@app.get("/api/todays_accounts")
+def get_todays_accounts():
+    return {"accounts": TODAYS_ACCOUNTS}
     
 @app.get("/api")
 def read_root():

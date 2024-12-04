@@ -94,16 +94,16 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
         <div className="flex justify-start space-x-4 mt-8 px-6">
           {/*card layout container*/}
           <div
-          className={`flex-shrink-0 h-[50vh] w-[25%] ${darkMode ? "bg-[#1B152A]" : "bg-gray-200"} rounded-md shadow-md p-4 overflow-hidden`}>
-            <h2 className={`text-lg font-bold ${darkMode ? "text-white":"text-black"} mb-4`}>
+          className={`flex-shrink-0 h-[50vh] w-[25%] ${darkMode ? "bg-[#1B152A]" : "bg-[#79D7F0]"} rounded-md shadow-md p-4 overflow-hidden`}>
+            <h2 className={`text-lg font-bold text-white mb-2`}>
               Today's Accounts
             </h2>
             <div
-              className={`overflow-y-auto h-full scrollbar scrollbar-thin 
-              ${darkMode
-                ?"scrollbar-thumb-purple-500 scrollbar-track-gray-800"
-                :"scrollbar-thumb-blue-300 scrollbar-track-gray-100"
-              }space-y-4`}
+              className={`overflow-y-auto h-full scrollbar scrollbar-thin space-y-2 pb-10 ${
+                darkMode
+                  ? "scrollbar-thumb-purple-500 scrollbar-track-gray-800"
+                  : "scrollbar-thumb-blue-300 scrollbar-track-gray-100"
+              }`}
             >
               {todaysAccounts.map((account, index) => (
                 <div

@@ -3,13 +3,18 @@ import API from "../services/api";
 import LogoTrigger from "../components/LogoTrigger";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-const Dashboard = ({isAuthenticated, darkMode}) => {
-  const [message, setMessage] = useState("");
+const Dashboard = ({isAuthenticated, darkMode, username}) => {
   const [isPulsing, setIsPulsing] = useState(false);
   const [displayedWords, setDisplayedWords] = useState("");//store realtime words
   const {transcript, resetTranscript} = useSpeechRecognition();//setup speech recog.
   const [isListening, setIsListening] = useState(false);
   const [todaysAccounts, setTodaysAccounts] = useState([]);
+  const [userDetails, setUserDetails] = useState({
+    firstName: "",
+    emailsSent: 0,
+    repliesReceived: 0,
+    pendingAccounts: 0,
+  });
   
   useEffect(() => {
     console.log("Dashboard mounted. isAuthenticated:", isAuthenticated);
@@ -28,6 +33,22 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
       .then((response) => setTodaysAccounts(response.data.accounts))
       .catch((error) => console.error(error));
   }, []);
+
+  useEffect(() => {
+    if (username) {
+      API.get(`http://127.0.0.1:8000/user/${username}`)
+        .then((response) => {
+          const data = response.data;
+          setUserDetails({
+            firstName: data.full_name.split(" ")[0],
+            emailsSent: data.emails_sent,
+            repliesReceived: data.replies_received,
+            pendingAccounts: data.pending_accounts,
+          });
+        })
+        .catch((error) => console.error("Failed to fetch user data:", error));
+    }
+  }, [username]);
 
   useEffect(() => {//"hey kimi" logic
     const normalizedTranscript = transcript.toLowerCase();
@@ -68,12 +89,6 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
 
   }, [transcript, resetTranscript, isListening]);
 
-  useEffect(() => {
-    API.get("/")
-      .then((response) => setMessage(response.data.message))
-      .catch((error) => console.error(error));
-  }, []);
-
   // handle circle trigger
   const handleTrigger = () => {
     console.log("trigger activated");
@@ -87,6 +102,14 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
         darkMode ? "bg-[#0E0915] text-white" : "bg-white text-black"
       }`}
     >
+      {/*infobar*/}
+      <div className="w-full bg-[#5539CC] text-white px-6 py-4">
+        <h1 className="text-xl font-bold">
+          Hey {userDetails.firstName}! I sent {userDetails.emailsSent} emails and got{" "}
+          {userDetails.repliesReceived} replies this week. You have{" "}
+          {userDetails.pendingAccounts} accounts pending review.
+        </h1>
+      </div>
       {/*page content*/}
       <div className="flex-grow content-wrapper"
         style={{ marginLeft: "9rem" }}>
@@ -172,12 +195,7 @@ const Dashboard = ({isAuthenticated, darkMode}) => {
                 </div>
               ))}
             </div>
-          </div>
-  
-          {/*others*/}
-          <div className="flex-grow text-center">
-            <h1 className="text-3xl font-bold">{message || "Loading..."}</h1>
-          </div>
+          </div>  
         </div>
       </div>
   

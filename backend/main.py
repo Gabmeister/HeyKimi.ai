@@ -13,27 +13,6 @@ app.add_middleware(
     allow_headers=["*"],  #allow all headers
 )
 
-MOCK_USERS = { #dummy data
-    "admin": {
-        "password": "password",
-        "email": "admin@kimideveloper.com",
-        "full_name": "Gabriel Plaza",
-        "company_name": "HeyKimi.ai",
-        "industry": "Technology",
-        "subscription_plan": "Pro Plan",
-        "account_created": "2024-11-26",
-    },
-    "johndoe1": {
-        "password": "password123",
-        "email": "john.doe@startup.com",
-        "full_name": "John Doe",
-        "company_name": "Doe Enterprises",
-        "industry": "Finance",
-        "subscription_plan": "Free Plan",
-        "account_created": "2024-12-02",
-    },
-}
-
 TODAYS_ACCOUNTS = [
     {
         "name": "Arasaka",
@@ -72,6 +51,34 @@ TODAYS_ACCOUNTS = [
     },
 ]
 
+MOCK_USERS = { #dummy data
+    "admin": {
+        "password": "password",
+        "email": "admin@kimideveloper.com",
+        "full_name": "Gabriel Plaza",
+        "company_name": "HeyKimi.ai",
+        "industry": "Technology",
+        "subscription_plan": "Pro Plan",
+        "account_created": "2024-11-26",
+        "emails_sent": 177,
+        "replies_received": 42,
+        "pending_accounts": len(TODAYS_ACCOUNTS),
+    },
+    "johndoe1": {
+        "password": "password123",
+        "email": "john.doe@startup.com",
+        "full_name": "John Doe",
+        "company_name": "Doe Enterprises",
+        "industry": "Finance",
+        "subscription_plan": "Free Plan",
+        "account_created": "2024-12-02",
+        "emails_sent": 69,
+        "replies_received": 7,
+        "pending_accounts": len(TODAYS_ACCOUNTS),
+    },
+}
+
+
 class LoginRequest(BaseModel):
     username: str
     password: str
@@ -108,6 +115,9 @@ def get_user_details(username: str):
             "industry": user_data["industry"],
             "subscription_plan": user_data["subscription_plan"],
             "account_created": user_data["account_created"],
+            "emails_sent": user_data["emails_sent"],  
+            "replies_received": user_data["replies_received"],  
+            "pending_accounts": user_data["pending_accounts"], 
         }
     else:
         raise HTTPException(status_code=404, detail="User not found")   

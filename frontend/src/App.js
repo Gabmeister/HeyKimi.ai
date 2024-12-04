@@ -39,7 +39,7 @@ function App(){
           <Route
             path="/dashboard"
             element={
-              isAuthenticated ? (<Dashboard isAuthenticated={isAuthenticated} darkMode={darkMode}/>)
+              isAuthenticated ? (<Dashboard isAuthenticated={isAuthenticated} darkMode={darkMode} username={username}/>)
               : (<Navigate to="/login" replace/>)
             }
           />

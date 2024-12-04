@@ -100,16 +100,23 @@ const Dashboard = ({isAuthenticated, darkMode, username}) => {
     <div
       className={`min-h-screen flex flex-col ${
         darkMode ? "bg-[#0E0915] text-white" : "bg-white text-black"
-      }`}
-    >
+      }`}>
+    
       {/*infobar*/}
-      <div className="w-full bg-[#5539CC] text-white px-6 py-4">
-        <h1 className="text-xl font-bold">
-          Hey {userDetails.firstName}! I sent {userDetails.emailsSent} emails and got{" "}
-          {userDetails.repliesReceived} replies this week. You have{" "}
-          {userDetails.pendingAccounts} accounts pending review.
-        </h1>
+      <div className="max-w-10xl text-white px-6 mt-6"
+      style={{ marginLeft: "9rem" }}>
+        <div className="rounded-lg shadow-md p-4 bg-[#5539CC]">
+          <h1 className="text-3xl font-bold">
+            Hey {userDetails.firstName}!
+          </h1>
+          <h2>
+            I sent <span className="font-bold">{userDetails.emailsSent}</span> emails and got{" "}
+            <span className="font-bold">{userDetails.repliesReceived}</span> replies this week. You have{" "}
+            <span className="font-bold">{userDetails.pendingAccounts}</span> accounts pending review.
+          </h2>
+        </div>
       </div>
+
       {/*page content*/}
       <div className="flex-grow content-wrapper"
         style={{ marginLeft: "9rem" }}>

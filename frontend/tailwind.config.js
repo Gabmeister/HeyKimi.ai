@@ -6,6 +6,7 @@ module.exports = {
       animation: {
         pulse: "pulse 1.5s infinite",
         float: "float 3s ease-in-out infinite",
+        slowpulse: 'pulse 7s infinite',
       },
       keyframes: {
         pulse: {
